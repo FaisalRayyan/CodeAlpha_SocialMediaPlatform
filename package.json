@@ -1,0 +1,15 @@
+{
+  "name": "codealpha-social-media-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "CodeAlpha Full Stack Internship Task 2 - Social Media Platform",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
+}
