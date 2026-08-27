@@ -10,7 +10,7 @@ const commentSchema = new mongoose.Schema(
 
 const postSchema = new mongoose.Schema(
   {
-    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     text: { type: String, trim: true, maxlength: 1500, default: '' },
     image: { type: String, default: '' },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
@@ -19,6 +19,7 @@ const postSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+postSchema.index({ createdAt: -1 });
 postSchema.index({ author: 1, createdAt: -1 });
 
 export default mongoose.model('Post', postSchema);

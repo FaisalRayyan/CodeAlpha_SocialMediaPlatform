@@ -1,13 +1,16 @@
 {
   "name": "codealpha-social-media-platform",
   "private": true,
-  "version": "1.0.0",
-  "description": "CodeAlpha Full Stack Internship Task 2 - Social Media Platform",
+  "version": "2.0.0",
+  "description": "CodeAlpha Full Stack Internship Task 2 - complete SocialSphere social media platform",
   "scripts": {
     "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
     "install:all": "npm install && npm install --prefix server && npm install --prefix client",
     "build": "npm run build --prefix client",
-    "start": "npm start --prefix server"
+    "start": "npm start --prefix server",
+    "seed": "npm run seed --prefix server",
+    "check": "npm run check --prefix server",
+    "setup:windows": "powershell -ExecutionPolicy Bypass -File ./scripts/setup.ps1"
   },
   "devDependencies": {
     "concurrently": "^9.2.0"

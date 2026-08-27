@@ -1,0 +1,26 @@
+name: SocialSphere CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install backend
+        run: npm install --prefix server
+      - name: Check backend syntax
+        run: npm run check --prefix server
+      - name: Install frontend
+        run: npm install --prefix client
+      - name: Build frontend
+        run: npm run build --prefix client

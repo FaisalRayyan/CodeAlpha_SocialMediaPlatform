@@ -1,11 +1,21 @@
 import { Router } from 'express';
-import { getUserProfile, searchUsers, toggleFollow, updateProfile } from '../controllers/userController.js';
+import {
+  getConnections,
+  getSuggestions,
+  getUserProfile,
+  searchUsers,
+  toggleFollow,
+  updateProfile,
+} from '../controllers/userController.js';
 import { protect } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
 
 const router = Router();
-router.get('/search', protect, searchUsers);
-router.get('/:username', protect, getUserProfile);
-router.patch('/me', protect, upload.single('avatar'), updateProfile);
-router.post('/:userId/follow', protect, toggleFollow);
+router.use(protect);
+router.get('/search', searchUsers);
+router.get('/suggestions', getSuggestions);
+router.patch('/me', upload.single('avatar'), updateProfile);
+router.post('/:userId/follow', toggleFollow);
+router.get('/:username/connections/:type', getConnections);
+router.get('/:username', getUserProfile);
 export default router;

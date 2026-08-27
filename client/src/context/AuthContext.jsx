@@ -8,9 +8,19 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const handleUnauthorized = () => setUser(null);
+    window.addEventListener('socialsphere:unauthorized', handleUnauthorized);
+
     const token = localStorage.getItem('socialsphere_token');
-    if (!token) return setLoading(false);
-    api.get('/auth/me').then(({ data }) => setUser(data.user)).catch(() => localStorage.removeItem('socialsphere_token')).finally(() => setLoading(false));
+    if (!token) setLoading(false);
+    else {
+      api.get('/auth/me')
+        .then(({ data }) => setUser(data.user))
+        .catch(() => setUser(null))
+        .finally(() => setLoading(false));
+    }
+
+    return () => window.removeEventListener('socialsphere:unauthorized', handleUnauthorized);
   }, []);
 
   async function login(identifier, password) {
